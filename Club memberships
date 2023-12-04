@@ -1,0 +1,12 @@
+CREATE TABLE club_membership
+SELECT `cardholder name`, ROUND(sum(CAST(`total due` as float)), 2) as Total_cust_spend,
+ROUND(avg(CAST(`total due` as float)), 2) as Avg_cust_spend,
+count(CASE WHEN `cashier name` = 'effingham Manager' or `cashier name` = 'pearmundcellars manager' THEN `cardholder name` END) 
+    AS `Number of Visits`,
+    count(CASE WHEN `line item` = 'Wine Club $75' or `line item` = 'Wine Club Year Gift' THEN `cardholder name` END) 
+    AS `PC Wine Club`,
+    count(CASE WHEN `line item` = 'Effingham Wine Club' THEN `cardholder name` END) AS `EF Wine Club`,
+    count(CASE WHEN `line item` = '2022 Three Year Barrel Club' or `line item` = 'Barrel' THEN `cardholder name` END) AS `PC Barrel Club`,
+    count(CASE WHEN `line item` = '2023 BARREL' THEN `cardholder name` END) AS `EF Barrel Club`
+FROM tenders_testing AS t1
+GROUP BY `cardholder name`;
