@@ -1,0 +1,5 @@
+CREATE TABLE tasting_cust
+SELECT `cashier name`, `cardholder name`, ROUND(avg(CAST(`total due` as float)), 2) as Avg_cust_spend,
+	count(CASE WHEN `line item` = 'wine tasting' or `line item` = 'tasting $18' THEN `cardholder name` END) AS `Number of Tastings`
+FROM tenders_testing AS t1
+GROUP BY `cardholder name`;
