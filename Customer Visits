@@ -1,0 +1,7 @@
+CREATE TABLE cust_visits2
+SELECT `cardholder name`, ROUND(SUM(CAST(`total due` as float)), 2) as Total_cust_spend,
+ROUND(avg(CAST(`total due` as float)), 2) as Avg_cust_spend,
+	count(CASE WHEN `cashier name` = 'pearmundcellars Manager' THEN `cardholder name` END) AS `pearmundcellars Manager`,
+  count(CASE WHEN `cashier name` = 'effingham Manager' THEN `cardholder name` END) AS `effingham Manager`
+FROM Tenders AS t1
+GROUP BY `cardholder name`;
